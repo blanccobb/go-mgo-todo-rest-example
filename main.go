@@ -6,6 +6,7 @@ import (
 	"net/http"
 	
 //	"github.com/gorilla/mux"
+	"github.com/blanccobb/go-mgo-todo-rest-example/config"
 	
 	
 )
@@ -16,7 +17,6 @@ func yourHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fmt.Println("Start Restful api for file information!")
-	
 	
 //	r := mux.NewRouter()
 //

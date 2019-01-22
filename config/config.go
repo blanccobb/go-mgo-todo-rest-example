@@ -16,7 +16,7 @@ type Config struct {
 	DB	*mgo.DialInfo
 }
 
-func getConfig() *Config {
+func GetConfig() *Config {
 	return &Config {
 		DB: &mgo.DialInfo {
 			Addrs:		[]string{MongoDBHosts},
