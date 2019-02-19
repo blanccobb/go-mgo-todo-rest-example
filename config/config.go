@@ -10,6 +10,7 @@ const (
 	AuthDatabase = "todoDB"
 	AuthUserName = "todoOwner"
 	AuthPassword = "todomanager"
+	COLLECTION 	 = "todoC"
 )
 
 type Config struct {
