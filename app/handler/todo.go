@@ -39,7 +39,7 @@ func GetTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTotoOr404(db, id, w, r)
+	todo := getTodoOr404(db, id, w, r)
 	if todo == nil {
 		return
 	}
@@ -51,7 +51,7 @@ func UpdateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTotoOr404(db, id, w, r)
+	todo := getTodoOr404(db, id, w, r)
 	if todo == nil {
 		return 
 	}
@@ -75,7 +75,7 @@ func DeleteTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTotoOr404(db, id, w, r)
+	todo := getTodoOr404(db, id, w, r)
 	if todo == nil {
 		return
 	}
@@ -90,7 +90,7 @@ func ArchiveTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTotoOr404(db, id, w, r)
+	todo := getTodoOr404(db, id, w, r)
 	if todo == nil {
 		return 
 	}
@@ -107,7 +107,7 @@ func RestoreTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTotoOr404(db, id, w, r)
+	todo := getTodoOr404(db, id, w, r)
 	if todo == nil {
 		return 
 	}
@@ -121,7 +121,7 @@ func RestoreTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 }
 
 // getTotoOr404 gets a Todo instance if exists, or respond the 404 error otherwise
-func getTotoOr404(db *mgo.Database, id string, w http.ResponseWriter, r *http.Request) *model.Todo {
+func getTodoOr404(db *mgo.Database, id string, w http.ResponseWriter, r *http.Request) *model.Todo {
 	todo := model.Todo{}
 	
 	if err := db.C(config.COLLECTION).FindId(bson.ObjectIdHex(id)).One(todo).Error(); err != nil {

@@ -15,7 +15,7 @@ func GetAllTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	todoId := vars["id"]
-	todo := getTotoOr404(db, todoId, w, r)
+	todo := getTodoOr404(db, todoId, w, r)
 	if todo == nil {
 		return 
 	}
@@ -31,7 +31,7 @@ func CreateTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	todoId := vars["id"]
-	todo := getTotoOr404(db, todoId, w, r)
+	todo := getTodoOr404(db, todoId, w, r)
 	if todo == nil {
 		return 
 	}
