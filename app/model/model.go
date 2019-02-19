@@ -27,7 +27,7 @@ type Task struct {
 	Title		string			`json:"title"`
 	Priority	string			`gorm:"type:ENUM('0', '1', '2', '3');default:'0'" json:"priority"`
 	Deadline	*time.Time		`gorm:"default:null" json:"deadline"`
-	Done		bool			`json:"done"`	
+	Done		bool			`json:"done"`
 }
 
 func (task *Task) Complete() {
