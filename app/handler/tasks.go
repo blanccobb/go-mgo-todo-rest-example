@@ -3,7 +3,6 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 	
 	"github.com/globalsign/mgo"
 	"github.com/gorilla/mux"
