@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 )
 
+
 // respondJSON makes the response with payload as json format
 func respondJSON(w http.ResponseWriter, status int, payload interface{}) {
 	response, err := json.Marshal(payload)

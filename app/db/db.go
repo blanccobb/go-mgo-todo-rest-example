@@ -32,13 +32,17 @@ func Close() {
 }
 
 // Insert...
-func Insert(collection *mgo.Collection, i interface{}) {
-	collection.Insert(i)
+func Insert(collection *mgo.Collection, i interface{}) error {
+	return collection.Insert(i)
 }
 
 // Like GET...
 func Get(collection *mgo.Collection, id string, i interface{}) {
 	collection.FindId(bson.ObjectIdHex(id)).One(i)
+}
+
+func GetByQ(collection *mgo.Collection, q interface{}, i interface{}) {
+	collection.Find(q).one(i)
 }
 
 func GetListByQ(collection *mgo.Collection, q interface{}, i interface{}) {
