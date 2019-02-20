@@ -6,9 +6,7 @@ import (
 	"fmt"
 
 	"github.com/gorilla/mux"
-	"github.com/globalsign/mgo"
 	"github.com/blanccobb/go-mgo-todo-rest-example/app/db"
-	"github.com/blanccobb/go-mgo-todo-rest-example/config"
 	"github.com/blanccobb/go-mgo-todo-rest-example/app/handler"
 	
 )
