@@ -13,7 +13,10 @@ import (
 
 func GetAllTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	todo := []model.Todo{}
-	db.C(config.COLLECTION).Find(bson.M{}).All(&todo)
+	if err := db.C(config.COLLECTION).Find(bson.M{}).All(&todo); err != nil {
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
 	respondJSON(w, http.StatusOK, todo)
 }
 
