@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	MongoDBHosts = "localhost:27017"
+	MongoDBHosts = "127.0.0.1:27017"
 	AuthDatabase = "todoDB"
 	AuthUserName = "todoOwner"
 	AuthPassword = "todomanager"
