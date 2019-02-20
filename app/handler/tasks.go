@@ -175,12 +175,13 @@ func UndoTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 func getTaskOr404(db *mgo.Database, title string, id string,  w http.ResponseWriter, r *http.Request) *model.Task {
 	todo := model.Todo{}
 	
-	if err := db.C(config.COLLECTION).Find(bson.M{"tasks":{"title": title}}).One(&todo); err != nil {
+	//find()안에 조건 다시 확인
+	if err := db.C(config.COLLECTION).Find({"_id": id, "tasks.title": title}).One(&todo); err != nil {
 		respondError(w, http.StatusNotFound, err.Error())
 		return nil
 	}
+	//배열이 아닌 하나의 Task를 반환
 	
-	return &todo.Task
-	
+	return &todo.Task[0]
 }
 

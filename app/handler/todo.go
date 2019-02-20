@@ -124,7 +124,7 @@ func RestoreTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 func getTodoOr404(db *mgo.Database, id string, w http.ResponseWriter, r *http.Request) *model.Todo {
 	todo := model.Todo{}
 	
-	if err := db.C(config.COLLECTION).FindId(bson.ObjectIdHex(id)).One(todo); err != nil {
+	if err := db.C(config.COLLECTION).FindId(bson.ObjectIdHex(id)).One(&todo); err != nil {
 		respondError(w, http.StatusNotFound, err.Error())
 		return nil
 	}
