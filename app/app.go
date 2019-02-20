@@ -35,6 +35,7 @@ func (app *App) Init() {
 }
 
 func (app *App) setRouters() {
+	app.Get("/", app.GetRoot)
 	app.Get("/todo", app.GetAllTodo)
 	app.Post("/todo", app.CreateTodo)
 	app.Get("/todo/{id}", app.GetTodo)
@@ -70,6 +71,9 @@ func (app *App) Delete(path string, f func(w http.ResponseWriter, r *http.Reques
 
 
 // Todo Handler
+func (app *App) GetRoot(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "not implemented yet !")
+}
 
 func (app *App) GetAllTodo(w http.ResponseWriter, r *http.Request) {
 	handler.GetAllTodo(app.DB, w, r)	
