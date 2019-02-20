@@ -22,6 +22,7 @@ func (app *App) Init() {
 	if err != nil {
 		log.Fatalf("CreateSession: %s\n", err)
 	}
+	defer session.Close()
 	
 	app.DB.Session = session
 	app.Router = mux.NewRouter()
