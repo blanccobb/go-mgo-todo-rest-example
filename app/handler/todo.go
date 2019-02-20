@@ -22,7 +22,7 @@ func CreateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	todo := model.Todo{}
 	
 	decoder := json.NewDecoder(r.Body)
-	if err != decoder.Decode(&todo); err != nil {
+	if err := decoder.Decode(&todo); err != nil {
 		respondError(w, http.StatusBadRequest, err.Error())
 		return 
 	}
