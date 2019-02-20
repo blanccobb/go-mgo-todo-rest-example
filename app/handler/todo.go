@@ -12,16 +12,16 @@ import (
 )
 
 
-func GetAllTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
+func GetAllTodo(session *mgo.Session, w http.ResponseWriter, r *http.Request) {
 	todo := []model.Todo{}
-	if err := db.C(config.COLLECTION).Find(bson.M{}).All(&todo); err != nil {
+	if err := session.DB(config.AuthDatabase).C(config.COLLECTION).Find(bson.M{}).All(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	respondJSON(w, http.StatusOK, todo)
 }
 
-func CreateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
+func CreateTodo(session *mgo.Session, w http.ResponseWriter, r *http.Request) {
 	todo := model.Todo{}
 	
 	decoder := json.NewDecoder(r.Body)
@@ -32,18 +32,18 @@ func CreateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	
 	defer r.Body.Close()
 	
-	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
+	if err := session.DB(config.AuthDatabase).C(config.COLLECTION).Insert(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	respondJSON(w, http.StatusCreated, todo)
 }
 
-func GetTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
+func GetTodo(session *mgo.Session, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTodoOr404(db, id, w, r)
+	todo := getTodoOr404(session, id, w, r)
 	if todo == nil {
 		return
 	}
@@ -51,11 +51,11 @@ func GetTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusOK, todo)
 }
 
-func UpdateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
+func UpdateTodo(session *mgo.Session, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTodoOr404(db, id, w, r)
+	todo := getTodoOr404(session, id, w, r)
 	if todo == nil {
 		return 
 	}
@@ -67,7 +67,7 @@ func UpdateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	
-	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
+	if err := session.DB(config.AuthDatabase).C(config.COLLECTION).Insert(&todo); err != nil {
 		respondJSON(w, http.StatusInternalServerError, err.Error())
 		return 
 	}
@@ -75,49 +75,49 @@ func UpdateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusOK, todo)
 }
 
-func DeleteTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
+func DeleteTodo(session *mgo.Session, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTodoOr404(db, id, w, r)
+	todo := getTodoOr404(session, id, w, r)
 	if todo == nil {
 		return
 	}
-	if err := db.C(config.COLLECTION).Remove(&todo); err != nil {
+	if err := session.DB(config.AuthDatabase).C(config.COLLECTION).Remove(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	respondJSON(w, http.StatusOK, nil)
 }
 
-func ArchiveTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
+func ArchiveTodo(session *mgo.Session, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTodoOr404(db, id, w, r)
+	todo := getTodoOr404(session, id, w, r)
 	if todo == nil {
 		return 
 	}
 	
 	todo.Achive()
-	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
+	if err := session.DB(config.AuthDatabase).C(config.COLLECTION).Insert(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	respondJSON(w, http.StatusOK, todo)
 }
 
-func RestoreTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
+func RestoreTodo(session *mgo.Session, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
 	id := vars["id"]
-	todo := getTodoOr404(db, id, w, r)
+	todo := getTodoOr404(session, id, w, r)
 	if todo == nil {
 		return 
 	}
 	
 	todo.Save()
-	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
+	if err := session.DB(config.AuthDatabase).C(config.COLLECTION).Insert(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -125,10 +125,10 @@ func RestoreTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 }
 
 // getTotoOr404 gets a Todo instance if exists, or respond the 404 error otherwise
-func getTodoOr404(db *mgo.Database, id string, w http.ResponseWriter, r *http.Request) *model.Todo {
+func getTodoOr404(session *mgo.Session, id string, w http.ResponseWriter, r *http.Request) *model.Todo {
 	todo := model.Todo{}
 	
-	if err := db.C(config.COLLECTION).FindId(bson.ObjectIdHex(id)).One(&todo); err != nil {
+	if err := session.DB(config.AuthDatabase).C(config.COLLECTION).FindId(bson.ObjectIdHex(id)).One(&todo); err != nil {
 		respondError(w, http.StatusNotFound, err.Error())
 		return nil
 	}
