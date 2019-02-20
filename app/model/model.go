@@ -37,4 +37,3 @@ func (task *Task) Complete() {
 func (task *Task) Undo() {
 	task.Done = false
 }
-

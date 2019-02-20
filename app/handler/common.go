@@ -25,4 +25,3 @@ func respondError(w http.ResponseWriter, code int, message string) {
 	respondJSON(w, code, map[string]string{"error": message})
 }
 
-
