@@ -4,12 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 	
-	"github.com/globalsign/mgo"
 	"github.com/gorilla/mux"
 	"github.com/globalsign/mgo/bson"
 	"github.com/blanccobb/go-mgo-todo-rest-example/app/db"
 	"github.com/blanccobb/go-mgo-todo-rest-example/app/model"
-	"github.com/blanccobb/go-mgo-todo-rest-example/config"
 )
 
 

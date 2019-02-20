@@ -5,11 +5,9 @@ import (
 	"net/http"
 	
 	"github.com/gorilla/mux"
-	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 	"github.com/blanccobb/go-mgo-todo-rest-example/app/db"
 	"github.com/blanccobb/go-mgo-todo-rest-example/app/model"
-	"github.com/blanccobb/go-mgo-todo-rest-example/config"
 )
 
 func GetAllTodo(w http.ResponseWriter, r *http.Request) {
