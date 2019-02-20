@@ -3,6 +3,7 @@ package app
 import (
 	"net/http"
 	"log"
+	"fmt"
 
 	"github.com/gorilla/mux"
 	"github.com/globalsign/mgo"
