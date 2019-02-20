@@ -11,7 +11,6 @@ import (
 	"github.com/blanccobb/go-mgo-todo-rest-example/config"
 )
 
-
 func GetAllTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	
