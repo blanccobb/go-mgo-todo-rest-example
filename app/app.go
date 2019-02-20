@@ -13,7 +13,7 @@ import (
 
 type App struct {
 	Router 	*mux.Router
-	DB		*mgo.Session
+	DB		*mgo.Database
 }
 
 func (app *App) Init() {
@@ -28,7 +28,7 @@ func (app *App) Init() {
 //	session.SetMode(mgo.Monotonic, true)
 	fmt.Printf("Connected to %v!\n", session.LiveServers())
 	
-	app.DB = session
+	app.DB = session.DB(config.AuthDatabase)
 	app.Router = mux.NewRouter()
 	app.setRouters()	
 	
