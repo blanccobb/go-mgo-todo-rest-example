@@ -42,7 +42,7 @@ func Get(collection *mgo.Collection, id string, i interface{}) {
 }
 
 func GetByQ(collection *mgo.Collection, q interface{}, i interface{}) {
-	collection.Find(q).one(i)
+	collection.Find(q).One(i)
 }
 
 func GetListByQ(collection *mgo.Collection, q interface{}, i interface{}) {
