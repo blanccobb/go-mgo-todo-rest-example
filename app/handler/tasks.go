@@ -16,6 +16,7 @@ func GetAllTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	
 	todoId := vars["id"]
 	todo := getTodoOr404(db, todoId, w, r)
+	
 	if todo == nil {
 		return 
 	}
@@ -49,7 +50,7 @@ func CreateTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	where := bson.M{"_id": todoId}
 	pushArray := bson.M{"$push": bson.M{"tasks": task}}
 	
-	if err := db.C(config.COLLECTION).Update(where, pushArray).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Update(where, pushArray); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -91,7 +92,7 @@ func UpdateTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	where := bson.M{"_id": todoId, "tasks.title": todoTitle}
 	updateArray := bson.M{"$set": bson.M{"tasks": task}}
 	
-	if err := db.C(config.COLLECTION).Update(where, updateArray).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Update(where, updateArray); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -113,7 +114,7 @@ func DeleteTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	where := bson.M{"_id": todoId, "tasks.title": todoTitle}
 	deleteArray := bson.M{"$pull": bson.M{"tasks": task}}
 	
-	if err := db.C(config.COLLECTION).Update(where, updateArray).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Update(where, deleteArray); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -139,7 +140,7 @@ func CompleteTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	where := bson.M{"_id": todoId, "tasks.title": todoTitle}
 	updateArray := bson.M{"$set": bson.M{"tasks": task}}
 	
-	if err := db.C(config.COLLECTION).Update(where, updateArray).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Update(where, updateArray); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -163,7 +164,7 @@ func UndoTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	where := bson.M{"_id": todoId, "tasks.title": todoTitle}
 	updateArray := bson.M{"$set": bson.M{"tasks": task}}
 	
-	if err := db.C(config.COLLECTION).Update(where, updateArray).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Update(where, updateArray); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -174,7 +175,7 @@ func UndoTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 func getTaskOr404(db *mgo.Database, title string, id string,  w http.ResponseWriter, r *http.Request) *model.Task {
 	todo := model.Todo{}
 	
-	if err := db.C(config.COLLECTION).Find(bson.M{"tasks":{"title": title}}).One(todo).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Find(bson.M{"tasks":{"title": title}}).One(todo); err != nil {
 		respondError(w, http.StatusNotFound, err.Error())
 		return nil
 	}

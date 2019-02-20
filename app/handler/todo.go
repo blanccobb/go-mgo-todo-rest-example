@@ -28,7 +28,7 @@ func CreateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	
 	defer r.Body.Close()
 	
-	if err := db.C(config.COLLECTION).Insert(&todo).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -63,7 +63,7 @@ func UpdateTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	
-	if err := db.C(config.COLLECTION).Insert(&todo).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
 		respondJSON(w, http.StatusInternalServerError, err.Error())
 		return 
 	}
@@ -79,7 +79,7 @@ func DeleteTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	if todo == nil {
 		return
 	}
-	if err := db.C(config.COLLECTION).Remove(&todo).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Remove(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -96,7 +96,7 @@ func ArchiveTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	}
 	
 	todo.Achive()
-	if err := db.C(config.COLLECTION).Insert(&todo).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -113,7 +113,7 @@ func RestoreTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	}
 	
 	todo.Save()
-	if err := db.C(config.COLLECTION).Insert(&todo).Error(); err != nil {
+	if err := db.C(config.COLLECTION).Insert(&todo); err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -124,7 +124,7 @@ func RestoreTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 func getTodoOr404(db *mgo.Database, id string, w http.ResponseWriter, r *http.Request) *model.Todo {
 	todo := model.Todo{}
 	
-	if err := db.C(config.COLLECTION).FindId(bson.ObjectIdHex(id)).One(todo).Error(); err != nil {
+	if err := db.C(config.COLLECTION).FindId(bson.ObjectIdHex(id)).One(todo); err != nil {
 		respondError(w, http.StatusNotFound, err.Error())
 		return nil
 	}
