@@ -70,4 +70,3 @@ func Delete(collection *mgo.Collection, i interface{}) error {
 //	}
 //	return true
 //}
-
