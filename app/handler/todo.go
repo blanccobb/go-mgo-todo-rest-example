@@ -11,6 +11,7 @@ import (
 	"github.com/blanccobb/go-mgo-todo-rest-example/config"
 )
 
+
 func GetAllTodo(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	todo := []model.Todo{}
 	err := db.C(config.COLLECTION).Find(bson.M{}).All(&todo)
