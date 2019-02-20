@@ -24,9 +24,12 @@ func (app *App) Init() {
 	}
 	defer session.Close()
 	
-	app.DB.Session = session
+	session.SetMode(mgo.Monotonic, true)
+	
+	app.DB.Session = session.New()
 	app.Router = mux.NewRouter()
 	app.setRouters()	
+	
 }
 
 func (app *App) setRouters() {
