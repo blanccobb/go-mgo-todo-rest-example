@@ -2,8 +2,6 @@ package dao
 
 import (
 	"log"
-	"encoding/json"
-	"net/http"
 	
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
