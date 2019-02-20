@@ -8,6 +8,7 @@ import (
 	"github.com/blanccobb/go-mgo-todo-rest-example/config"
 )
 
+
 var (
 	Session		*mgo.Session
 	
