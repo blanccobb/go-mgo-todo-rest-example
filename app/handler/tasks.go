@@ -64,7 +64,7 @@ func GetTasks(db *mgo.Database, w http.ResponseWriter, r *http.Request) {
 	todoId := vars["id"]
 	todoTitle := vars["title"]
 	task := getTaskOr404(db, todoTitle, todoId, w, r)
-	if todo == nil {
+	if task == nil {
 		return 
 	}
 	
