@@ -135,11 +135,10 @@ func (app *App) CompleteTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *App) UndoTask(w http.ResponseWriter, r *http.Request) {
-	handler.UndoTasks( w, r)
+	handler.UndoTasks( w, r)	
 }
 
 func (app *App) Run(host string) {
 	log.Fatal(http.ListenAndServe(host, app.Router))
 }
-
 
