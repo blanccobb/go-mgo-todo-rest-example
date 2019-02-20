@@ -46,80 +46,80 @@ func (app *App) setRouters() {
 	app.Delete("/todo/{id}/tasks/{title}/complete", app.UndoTask)
 }
 
-func (app *App) Get(path string, f func(w http.ResponseWriter, r *http.Response)) {
+func (app *App) Get(path string, f func(w http.ResponseWriter, r *http.Request)) {
 	app.Router.HandleFunc(path, f).Methods("GET")
 }
 
-func (app *App) Post(path string, f func(w http.ResponseWriter, r *http.Response)) {
+func (app *App) Post(path string, f func(w http.ResponseWriter, r *http.Request)) {
 	app.Router.HandleFunc(path, f).Methods("Post")
 }
 
-func (app *App) Put(path string, f func(w http.ResponseWriter, r *http.Response)) {
+func (app *App) Put(path string, f func(w http.ResponseWriter, r *http.Request)) {
 	app.Router.HandleFunc(path, f).Methods("Put")
 }
 
-func (app *App) Delete(path string, f func(w http.ResponseWriter, r *http.Response)) {
+func (app *App) Delete(path string, f func(w http.ResponseWriter, r *http.Request)) {
 	app.Router.HandleFunc(path, f).Methods("Delete")
 }
 
 
 // Todo Handler
 
-func (app *App) GetAllTodo(w http.ResponseWriter, r *http.Response) {
+func (app *App) GetAllTodo(w http.ResponseWriter, r *http.Request) {
 	handler.GetAllTodo(app.DB, w, r)	
 }
 
-func (app *App) CreateTodo(w http.ResponseWriter, r *http.Response) {
+func (app *App) CreateTodo(w http.ResponseWriter, r *http.Request) {
 	handler.CreateTodo(app.DB, w, r)	
 }
 
-func (app *App) GetTodo(w http.ResponseWriter, r *http.Response) {
+func (app *App) GetTodo(w http.ResponseWriter, r *http.Request) {
 	handler.GetTodo(app.DB, w, r)
 }
 
-func (app *App) UpdateTodo(w http.ResponseWriter, r *http.Response) {
+func (app *App) UpdateTodo(w http.ResponseWriter, r *http.Request) {
 	handler.UpdateTodo(app.DB, w, r)
 }
 
-func (app *App) DeleteTodo(w http.ResponseWriter, r *http.Response) {
+func (app *App) DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	handler.DeleteTodo(app.DB, w, r)
 }
 
-func (app *App) ArcheiveTodo(w http.ResponseWriter, r *http.Response) {
+func (app *App) ArcheiveTodo(w http.ResponseWriter, r *http.Request) {
 	handler.ArchiveTodo(app.DB, w, r)
 }
 
-func (app *App) RestoreTodo(w http.ResponseWriter, r *http.Response) {
+func (app *App) RestoreTodo(w http.ResponseWriter, r *http.Request) {
 	handler.RestoreTodo(app.DB, w, r)
 }
 
 // Task Handler
 
-func (app *App) GetAllTasks(w http.ResponseWriter, r *http.Response) {
+func (app *App) GetAllTasks(w http.ResponseWriter, r *http.Request) {
 	handler.GetAllTasks(app.DB, w, r)
 }
 
-func (app *App) CreateTask(w http.ResponseWriter, r *http.Response) {
+func (app *App) CreateTask(w http.ResponseWriter, r *http.Request) {
 	handler.CreateTasks(app.DB, w, r)
 }
 
-func (app *App) GetTask(w http.ResponseWriter, r *http.Response) {
+func (app *App) GetTask(w http.ResponseWriter, r *http.Request) {
 	handler.GetTasks(app.DB, w, r)
 }
 
-func (app *App) UpdateTask(w http.ResponseWriter, r *http.Response) {
+func (app *App) UpdateTask(w http.ResponseWriter, r *http.Request) {
 	handler.UpdateTasks(app.DB, w, r)
 }
 
-func (app *App) DeleteTask(w http.ResponseWriter, r *http.Response) {
+func (app *App) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	handler.DeleteTasks(app.DB, w, r)
 }
 
-func (app *App) CompleteTask(w http.ResponseWriter, r *http.Response) {
+func (app *App) CompleteTask(w http.ResponseWriter, r *http.Request) {
 	handler.CompleteTasks(app.DB, w, r)
 }
 
-func (app *App) UndoTask(w http.ResponseWriter, r *http.Response) {
+func (app *App) UndoTask(w http.ResponseWriter, r *http.Request) {
 	handler.UndoTasks(app.DB, w, r)
 }
 
