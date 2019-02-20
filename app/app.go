@@ -24,9 +24,10 @@ func (app *App) Init() {
 	}
 	defer session.Close()
 	
-	session.SetMode(mgo.Monotonic, true)
+	fmt.Printf("Connected to %v!\n", session.LiveServers())
+//	session.SetMode(mgo.Monotonic, true)
 	
-	app.DB.Session = session.New()
+	app.DB.Session = session
 	app.Router = mux.NewRouter()
 	app.setRouters()	
 	
